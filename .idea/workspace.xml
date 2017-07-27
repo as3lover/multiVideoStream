@@ -19,10 +19,10 @@
       <file leaf-file-name="VideoPlayer.as" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/VideoPlayer.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="325" column="18" lean-forward="false" selection-start-line="325" selection-start-column="18" selection-end-line="325" selection-end-column="18" />
+            <state relative-caret-position="83">
+              <caret line="51" column="32" lean-forward="true" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
               <folding>
-                <element signature="e#11#42#0" expanded="true" />
+                <element signature="e#12#43#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -49,14 +49,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>toPercent</find>
-      <find>setper</find>
-      <find>status</find>
-      <find>close</find>
-      <find>error</find>
-      <find>set stat</find>
-      <find>&quot;Error</find>
-      <find>Error</find>
       <find>Erorr</find>
       <find>toper</find>
       <find>load</find>
@@ -79,6 +71,14 @@
       <find>trace</find>
       <find>playing</find>
       <find>Seek.Complete</find>
+      <find>stopped</find>
+      <find>statusView.text</find>
+      <find>connecting</find>
+      <find>finih</find>
+      <find>Flush</find>
+      <find>total</find>
+      <find>duration =</find>
+      <find>public function</find>
     </findStrings>
     <replaceStrings>
       <replace>private function</replace>
@@ -596,12 +596,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1500946861369</updated>
-      <workItem from="1500946863908" duration="38015000" />
+      <workItem from="1500946863908" duration="40791000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38015000" />
+    <option name="totallyTimeSpent" value="40791000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -679,10 +679,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/VideoPlayer.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="325" column="18" lean-forward="false" selection-start-line="325" selection-start-column="18" selection-end-line="325" selection-end-column="18" />
+        <state relative-caret-position="83">
+          <caret line="51" column="32" lean-forward="true" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
           <folding>
-            <element signature="e#11#42#0" expanded="true" />
+            <element signature="e#12#43#0" expanded="true" />
           </folding>
         </state>
       </provider>

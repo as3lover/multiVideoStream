@@ -1,3 +1,4 @@
+
 package {
 
 import com.greensock.TweenLite;
@@ -44,9 +45,10 @@ public class VideoPlayer extends Sprite
     private var currentFile:String;
     private var currentTime:Number;
     private var timeToSeek:int;
-    private var timeOut:uint;
     private var _toPercent:Number = -1;
     private var lastMsg:String;
+
+    private var loadTimeOut:uint;
     private var plyTimeout:uint;
     private var bfrTimeout:uint;
 
@@ -120,18 +122,21 @@ public class VideoPlayer extends Sprite
     private function init(event:Event):void
     {
         //load('E:\\vid.flv')
+        //load('E:\\vid2.flv')
         //load('F:\\2) Collections\\zz\\Terminator 2 - Judgment Day (1991)\\Terminator 2 - Judgment Day (1991).mp4')
         //load('http://as7.cdn.asset.aparat.com/aparat-video/4dff364ab2d6a20f39e093436e3156d07632788-480p__54124.mp4')
-        setTimeout(load,2000,'http://as7.cdn.asset.aparat.com/aparat-video/4dff364ab2d6a20f39e093436e3156d07632788-144p__54124.mp4')
+        //setTimeout(load,2000,'http://as7.cdn.asset.aparat.com/aparat-video/4dff364ab2d6a20f39e093436e3156d07632788-144p__54124.mp4')
         //setTimeout(load,2000,'http://hw6.asset.aparat.com/aparat-video/ce89d776c603d3019c5dc44866906fa87675871-720p__23080.mp4')
         stage.addEventListener(MouseEvent.MOUSE_DOWN, onClick);
-        //setTimeout(load,2000,'http://as3.cdn.asset.aparat.com/aparat-video/0b1c951b67df2bed6c7125a0097596dd2510188-352p__48707.mp4')
+        setTimeout(load,2000,'http://as3.cdn.asset.aparat.com/aparat-video/0b1c951b67df2bed6c7125a0097596dd2510188-352p__48707.mp4')
     }
 
     private function load(file:String)
     {
-        trace('load');
-        clearTimeout(timeOut);
+        clearTimeout(loadTimeOut);
+
+        lastMsg = '';
+        status = 'Start Load';
 
         ns.close();
         ns.dispose();
@@ -150,8 +155,9 @@ public class VideoPlayer extends Sprite
         loadComplete = false;
         _isPlaying = false;
 
-        lastMsg = '';
+
         status = 'connecting...';
+
         showLoading();
         bar.scaleX = 0;
         buffer.scaleX = 0;
@@ -199,6 +205,7 @@ public class VideoPlayer extends Sprite
         if(bytesTotal != ns.bytesTotal)
         {
             bytesTotal = ns.bytesTotal;
+            status = 'total ' + bytesTotal;
             //trace('Total:', bytesTotal);
         }
 
@@ -244,18 +251,16 @@ public class VideoPlayer extends Sprite
         else if(message != '')
             lastMsg = message + '\n' + lastMsg;
         else if(isPlaying)
-        {
             lastMsg = 'Playing' + '\n' + lastMsg;
-            message = 'Playing' + '\n-------------\n' + lastMsg;
-        }
         else
-        {
             lastMsg = 'Stopped' + '\n' + lastMsg;
+
+        if(isPlaying)
+            message = 'Playing' + '\n-------------\n' + lastMsg;
+        else
             message = 'Stopped' + '\n-------------\n' + lastMsg;
-        }
 
         statusView.text = message;
-
     }
 
     private function myStatusHandler(e:NetStatusEvent):void
@@ -335,9 +340,9 @@ public class VideoPlayer extends Sprite
                 Trace();
                 break;
 
-            case "NetStream.load.Stop":
-                Trace();
-                //dispatchEvent(new Event('finish'));
+            case "NetStream.Play.Stop":
+                if(loadComplete)
+                    status = 'Finish';
                 break;
 
             case "NetStream.Pause.Notify":
@@ -359,7 +364,7 @@ public class VideoPlayer extends Sprite
         function ErrorLoading():void
         {
             Trace();
-            timeOut = setTimeout(load,1000,currentFile);
+            loadTimeOut = setTimeout(load,1000,currentFile);
         }
 
         function StartDownloading():void
@@ -396,8 +401,7 @@ public class VideoPlayer extends Sprite
             setPercent(timeLine.mouseX / (timeLine.width/timeLine.scaleX));
         else if(e.target == statusView)
         {
-            status = null;
-            trace('-------------');
+            status = '-------------';
             trace('-------------');
         }
         else
@@ -412,13 +416,17 @@ public class VideoPlayer extends Sprite
     {
         //trace('NO LOIADING');
         TweenLite.to(loading, time, {alpha:0});
+        status = 'hideLoading';
     }
 
     private function showLoading(time:Number = .3)
     {
         //trace('SHOW LOIADING');
         if(!bufferFull && ! loadComplete)
+        {
             TweenLite.to(loading, time, {alpha:1});
+            status = 'showLoading';
+        }
     }
 
     private function setPercent(p:Number):void
@@ -467,6 +475,7 @@ public class VideoPlayer extends Sprite
         {
             //trace('duration',newMeta.duration);
             duration = newMeta.duration;
+            status = 'duration ' + duration;
         }
 
         //Utils.traceObject(newMeta);
@@ -567,9 +576,7 @@ public class VideoPlayer extends Sprite
             hideLoading();
         else
             showLoading();
-        status = ''
 
-        status = '...';
     }
 }
 }
